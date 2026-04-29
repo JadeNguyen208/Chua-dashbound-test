@@ -481,8 +481,20 @@ padding: 2px 8px; border-radius: 4px; margin-bottom: 6px;
 ::-webkit-scrollbar { width: 4px; height: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--gray-border); border-radius: 2px; }
-</style>
 
+.notif-dot {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.2);
+  animation: blink 1s infinite;
+  z-index: 10;
+  pointer-events: none;
+}
 </head>
 <body>
 
@@ -714,7 +726,7 @@ padding: 2px 8px; border-radius: 4px; margin-bottom: 6px;
       </div>
       <div class="left-search"><input type="text" placeholder="🔍 Tìm ban..."></div>
       <div class="ban-grid">
-        <div class="ban-cell status-urgent active" onclick="selectBan(this,'Ban Tri Sự','Phan Tuấn Anh','Kỹ thuật → BTS → BLĐ',true)"><div class="urgent-dot"></div><div class="ban-num">01</div><div class="ban-name">Ban Tri Sự</div></div>
+        <div class="ban-cell status-urgent active" onclick="selectBan(this,'Ban Tri Sự','Phan Tuấn Anh','Kỹ thuật → BTS → BLĐ',true)"><div class="notif-dot"></div><div class="urgent-dot"></div><div class="ban-num">01</div><div class="ban-name">Ban Tri Sự</div></div>
         <div class="ban-cell status-doing"  onclick="selectBan(this,'Ban Hướng Dẫn','Thích Minh Tâm','Nghiệp vụ → BLĐ',false)"><div class="ban-num">02</div><div class="ban-name">Ban Hướng Dẫn</div></div>
         <div class="ban-cell status-done"   onclick="selectBan(this,'Ban Nghi Lễ','Thích Phước An','Nghiệp vụ → BLĐ',false)"><div class="ban-num">03</div><div class="ban-name">Ban Nghi Lễ</div></div>
         <div class="ban-cell status-doing"  onclick="selectBan(this,'Ban Môi Trường','Nguyễn Văn Bình','Kỹ thuật → BTS → BLĐ',false)"><div class="ban-num">04</div><div class="ban-name">Ban Môi Trường</div></div>
