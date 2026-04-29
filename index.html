@@ -42,8 +42,22 @@ SCREEN SWITCHING
 ============================================================ */
 .screen { display: none !important; }
 #screen-login.active    { display: flex !important; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
-#screen-home.active     { display: flex !important; flex-direction: column; height: 100vh; overflow: hidden; }
-#screen-dashboard.active{ display: flex !important; flex-direction: column; height: 100vh; overflow: hidden; }
+#screen-home.active     { display: flex !important; flex-direction: column; height: 100vh; overflow: hidden; min-height: 0; }
+#screen-dashboard.active{ display: flex !important; flex-direction: column; height: 100vh; overflow: hidden; min-height: 0; }
+
+/* Topbar must always be visible and never collapse */
+#screen-home.active .topbar,
+#screen-dashboard.active .topbar {
+flex-shrink: 0;
+min-height: var(–topbar-h);
+height: var(–topbar-h);
+}
+#screen-home.active .app-layout,
+#screen-dashboard.active .app-body {
+flex: 1;
+min-height: 0;
+overflow: hidden;
+}
 
 /* ============================================================
 SCREEN 1 — LOGIN
