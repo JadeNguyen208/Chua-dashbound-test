@@ -282,7 +282,7 @@ align-items: flex-start; transition: box-shadow 0.12s; cursor: pointer;
 .task-deadline  { font-size: 11px; color: var(--gray-text); }
 .task-deadline.overdue { color: var(--danger); font-weight: 600; }
 .sp-box { margin-top: 8px; background: var(--danger-light); border: 1px solid rgba(198,40,40,0.25); border-radius: 6px; padding: 8px 10px; }
-.sp-box-label { font-size: 10px; font-weight: 700; color: var(--danger); margin-bottom: 4px; }
+.sp-box-label { font-size: 10px; font-weight: 700; color: var(--danger); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
 .sp-box-text  { font-size: 12px; color: var(--danger); font-weight: 500; line-height: 1.4; }
 .sp-box-time  { font-size: 10px; color: #e57373; margin-top: 3px; }
 .new-badge { font-size: 9px; font-weight: 700; background: var(--danger); color: #fff; padding: 2px 6px; border-radius: 3px; animation: pulse-badge 2s infinite; }
@@ -440,7 +440,7 @@ border: 1.5px solid rgba(198,40,40,0.35); border-left: 4px solid var(--danger);
 border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
 }
 .sp-block-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
-.sp-block-badge  { background: var(--danger); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; }
+.sp-block-badge  { background: var(--danger); color: #fff; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px; position: relative; display: inline-flex; align-items: center; gap: 8px; }
 .sp-block-text   { font-size: 13px; color: var(--danger); font-weight: 600; line-height: 1.5; }
 .sp-block-time   { font-size: 11px; color: #e57373; margin-top: 6px; }
 
@@ -470,9 +470,25 @@ border-bottom: 2px solid var(--gray-border); text-align: left;
 
 .td-sp { background: #fff5f5 !important; }
 .sp-taught-tag {
-display: inline-flex; align-items: center; gap: 4px;
+display: inline-flex; align-items: center; gap: 6px;
 background: var(--danger); color: #fff; font-size: 9px; font-weight: 700;
-padding: 2px 8px; border-radius: 4px; margin-bottom: 6px;
+padding: 2px 8px; border-radius: 4px; margin-bottom: 6px; position: relative;
+}
+
+/* Pulse dot for SP badges */
+.sp-pulse {
+width: 7px; height: 7px; border-radius: 50%;
+background: #ff4444; flex-shrink: 0; position: relative; display: inline-block;
+box-shadow: 0 0 4px #ff4444;
+}
+.sp-pulse::after {
+content: ''; position: absolute; inset: -3px;
+border-radius: 50%; background: rgba(255,68,68,0.5);
+animation: sp-ripple 1.2s ease-out infinite;
+}
+@keyframes sp-ripple {
+0%   { transform: scale(0.8); opacity: 1; }
+100% { transform: scale(2.2); opacity: 0; }
 }
 .sp-opinion-text { font-size: 12px; color: var(--danger); font-weight: 600; line-height: 1.5; }
 .sp-opinion-time { font-size: 10px; color: #e57373; margin-top: 4px; }
@@ -563,8 +579,8 @@ pointer-events: none;
       </div>
     </div>
     <div class="topbar-date">
-      <div class="topbar-date-solar">T4, 30/04/2026</div>
-      <div class="topbar-date-lunar">🌙 14 tháng 3 Âm Lịch</div>
+      <div class="topbar-date-solar">T4, 29/04/2026</div>
+      <div class="topbar-date-lunar">🌙 13 tháng 3 Âm Lịch</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-icon-btn">🔔<div class="badge-count">3</div></div>
@@ -635,7 +651,7 @@ pointer-events: none;
         <div class="task-card-body">
           <div class="task-card-top"><span class="task-ban-tag red">Ban Tri Sự</span><div class="task-name-home">Báo cáo tổng kết Quý I</div></div>
           <div class="task-meta"><span class="task-deadline overdue">⏰ Hạn: 30/04/2026</span><span class="new-badge">SP Chỉ Đạo</span></div>
-          <div class="sp-box"><div class="sp-box-label">🔴 Sư Phụ Chỉ Dạy</div><div class="sp-box-text">Yêu cầu Ban Tri Sự hoàn thành báo cáo tổng kết Quý I trước 30/04. Đặc biệt chú ý phần ngân sách cung ứng vật tư.</div><div class="sp-box-time">28/04/2026 · 06:30</div></div>
+          <div class="sp-box"><div class="sp-box-label"><span class="sp-pulse"></span>Sư Phụ Chỉ Dạy</div><div class="sp-box-text">Yêu cầu Ban Tri Sự hoàn thành báo cáo tổng kết Quý I trước 30/04. Đặc biệt chú ý phần ngân sách cung ứng vật tư.</div><div class="sp-box-time">28/04/2026 · 06:30</div></div>
         </div>
         <div class="task-card-right"><span class="ban-status-badge badge-red">Quá hạn</span></div>
       </div>
@@ -643,8 +659,8 @@ pointer-events: none;
         <div class="task-card-left"><div class="task-status-dot dot-red"></div></div>
         <div class="task-card-body">
           <div class="task-card-top"><span class="task-ban-tag red">Ban Vườn</span><div class="task-name-home">Chuẩn bị hoa tươi cho Lễ Vu Lan</div></div>
-          <div class="task-meta"><span class="task-deadline overdue">⏰ Hạn: 28/04 · 17:00</span><span class="new-badge">Mới</span></div>
-          <div class="sp-box"><div class="sp-box-label">🔴 Sư Phụ Chỉ Dạy</div><div class="sp-box-text">@Ban Vườn phối hợp Ban Mộc về trang trí chánh điện. Cần hoàn thành trước 17:00 hôm nay.</div><div class="sp-box-time">27/04/2026 · 14:30</div></div>
+          <div class="task-meta"><span class="task-deadline overdue">⏰ Hạn: 30/04 · 17:00</span><span class="new-badge">Mới</span></div>
+          <div class="sp-box"><div class="sp-box-label"><span class="sp-pulse"></span>Sư Phụ Chỉ Dạy</div><div class="sp-box-text">@Ban Vườn phối hợp Ban Mộc về trang trí chánh điện. Cần hoàn thành trước 17:00 hôm nay.</div><div class="sp-box-time">27/04/2026 · 14:30</div></div>
         </div>
         <div class="task-card-right"><span class="ban-status-badge badge-red">Khẩn</span></div>
       </div>
@@ -654,7 +670,7 @@ pointer-events: none;
       <div class="section-head"><span style="font-size:16px;">🟡</span><div class="section-head-title">Phận Sự Đang Diễn Ra Hôm Nay</div><span class="section-head-count count-yellow">3 việc</span></div>
       <div class="task-card doing"><div class="task-card-left"><div class="task-status-dot dot-yellow"></div></div><div class="task-card-body"><div class="task-card-top"><span class="task-ban-tag">Ban Tri Sự</span><div class="task-name-home">Vệ Sinh Chánh Điện</div></div><div class="task-meta"><span class="task-deadline">⏰ 06:00 -- 12:00 · Hôm nay</span><span class="new-badge" style="background:var(--warning);">Cập nhật mới</span></div></div><div class="task-card-right"><span class="ban-status-badge badge-yellow">Đang làm</span></div></div>
       <div class="task-card doing"><div class="task-card-left"><div class="task-status-dot dot-yellow"></div></div><div class="task-card-body"><div class="task-card-top"><span class="task-ban-tag">Ban Trang Trí</span><div class="task-name-home">Trang Trí Lễ Vu Lan</div></div><div class="task-meta"><span class="task-deadline">⏰ 28--30/04/2026</span></div></div><div class="task-card-right"><span class="ban-status-badge badge-yellow">Đang làm</span></div></div>
-      <div class="task-card doing"><div class="task-card-left"><div class="task-status-dot dot-yellow"></div></div><div class="task-card-body"><div class="task-card-top"><span class="task-ban-tag">Ban Tài Chính</span><div class="task-name-home">Dự Toán Cung Ứng Vật Tư</div></div><div class="task-meta"><span class="task-deadline">⏰ Hạn: 28/04 · 17:00</span></div></div><div class="task-card-right"><span class="ban-status-badge badge-yellow">Đang làm</span></div></div>
+      <div class="task-card doing"><div class="task-card-left"><div class="task-status-dot dot-yellow"></div></div><div class="task-card-body"><div class="task-card-top"><span class="task-ban-tag">Ban Tài Chính</span><div class="task-name-home">Dự Toán Cung Ứng Vật Tư</div></div><div class="task-meta"><span class="task-deadline">⏰ Hạn: 30/04 · 17:00</span></div></div><div class="task-card-right"><span class="ban-status-badge badge-yellow">Đang làm</span></div></div>
     </div>
 
     <div class="section-block">
@@ -704,8 +720,8 @@ pointer-events: none;
       </div>
     </div>
     <div class="topbar-date">
-      <div class="topbar-date-solar">T4, 30/04/2026</div>
-      <div class="topbar-date-lunar">🌙 14 tháng 3 Âm Lịch</div>
+      <div class="topbar-date-solar">T4, 29/04/2026</div>
+      <div class="topbar-date-lunar">🌙 13 tháng 3 Âm Lịch</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-icon-btn">🔔<div class="badge-count">3</div></div>
@@ -801,14 +817,14 @@ pointer-events: none;
   <div class="date-bar">
     <span class="date-label">🗓 Xem theo ngày:</span>
     <button class="date-nav-btn">◀</button>
-    <button class="date-btn" onclick="setDate(this)"><span class="date-solar">Hôm qua · 29/04</span><span class="date-lunar">🌙 15 tháng 3</span></button>
-    <button class="date-btn active" onclick="setDate(this)"><span class="date-solar">Hôm nay · 30/04</span><span class="date-lunar">🌙 14 tháng 3</span></button>
-    <button class="date-btn" onclick="setDate(this)"><span class="date-solar">Ngày mai · 01/05</span><span class="date-lunar">🌙 15 tháng 3</span></button>
+    <button class="date-btn" onclick="setDate(this)"><span class="date-solar">Hôm qua · 28/04</span><span class="date-lunar">🌙 13 tháng 3</span></button>
+    <button class="date-btn active" onclick="setDate(this)"><span class="date-solar">Hôm nay · 29/04</span><span class="date-lunar">🌙 14 tháng 3</span></button>
+    <button class="date-btn" onclick="setDate(this)"><span class="date-solar">Ngày mai · 30/04</span><span class="date-lunar">🌙 15 tháng 3</span></button>
     <button class="date-nav-btn">▶</button>
   </div>
   <div class="tab-content">
     <div class="sp-block">
-      <div class="sp-block-header"><div class="sp-block-badge">🔴 SƯ PHỤ CHỈ DẠY</div></div>
+      <div class="sp-block-header"><div class="sp-block-badge"><span class="sp-pulse"></span>SƯ PHỤ CHỈ DẠY</div></div>
       <div class="sp-block-text">Yêu cầu Ban Tri Sự hoàn thành báo cáo tổng kết Quý I trước 30/04. Đặc biệt chú ý phần ngân sách cung ứng vật tư.</div>
       <div class="sp-block-time">28/04/2026 · 06:30</div>
     </div>
@@ -827,19 +843,19 @@ pointer-events: none;
             <td><div class="task-name">Báo cáo tổng kết Quý I</div><div class="task-time">⏰ Hạn: 30/04/2026</div><span class="status-badge status-doing">⏳ Đang làm</span></td>
             <td><div class="opinion-text">Ban Tài Chính: Đã gửi số liệu ngân sách quý I. Cần bổ sung chi tiết từng khoản.</div><div class="opinion-who">Ban Tài Chính · 27/04 · 16:45</div></td>
             <td><div class="opinion-text">Đề nghị bổ sung đánh giá tiến độ từng ban kỹ thuật.</div><div class="opinion-who">BTS · 27/04 · 16:45</div></td>
-            <td class="td-sp"><div class="sp-taught-tag">🔴 SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Cần hoàn thành đúng hạn. Phần ngân sách phải chi tiết từng khoản mục. Không được thiếu mục vật tư.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 06:30</div></td>
+            <td class="td-sp"><div class="sp-taught-tag"><span class="sp-pulse"></span>SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Cần hoàn thành đúng hạn. Phần ngân sách phải chi tiết từng khoản mục. Không được thiếu mục vật tư.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 06:30</div></td>
           </tr>
           <tr>
             <td><div class="task-name">Vệ Sinh Chánh Điện</div><div class="task-time">⏰ 06:00 -- 12:00 · 28/04</div><span class="status-badge status-doing">⏳ Đang làm</span></td>
             <td><div class="opinion-text">Đồng ý mua loại tốt, chú ý an toàn khi quét trần cao.</div><div class="opinion-who">Ban Tài Chính · 28/04 · 07:45</div></td>
             <td><div class="opinion-text">Đã bảo Ban Cung Ứng chuẩn bị hàng. Dự kiến xong trước 12:00.</div><div class="opinion-who">BTS · 28/04 · 08:00</div></td>
-            <td class="td-sp"><div class="sp-taught-tag">🔴 SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Cần thêm 5 bộ chổi quét trần mới cho tuần sau. Ưu tiên loại cán dài.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 08:30</div></td>
+            <td class="td-sp"><div class="sp-taught-tag"><span class="sp-pulse"></span>SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Cần thêm 5 bộ chổi quét trần mới cho tuần sau. Ưu tiên loại cán dài.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 08:30</div></td>
           </tr>
           <tr class="row-urgent">
-            <td><div class="task-name">Dự Toán Cung Ứng Vật Tư</div><div class="task-time">⏰ Hạn: 28/04 · 17:00</div><span class="status-badge status-need">⚠ Cần xin ý kiến</span></td>
+            <td><div class="task-name">Dự Toán Cung Ứng Vật Tư</div><div class="task-time">⏰ Hạn: 30/04 · 17:00</div><span class="status-badge status-need">⚠ Cần xin ý kiến</span></td>
             <td><div class="opinion-text">Nến bơ loại lớn: 50 thùng. Hoa tươi các loại: 120 bó.</div><div class="opinion-who">Ban Kế Toán · 28/04 · 09:00</div></td>
             <td><div class="opinion-text">Đã giải ngân tạm ứng. Chờ xác nhận số lượng cuối.</div><div class="opinion-who">BTS · 28/04 · 09:10</div></td>
-            <td class="td-sp"><div class="sp-taught-tag">🔴 SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Trưởng ban Tri Sự cần xác nhận trước 17:00 hôm nay. Không được trễ.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 09:15</div></td>
+            <td class="td-sp"><div class="sp-taught-tag"><span class="sp-pulse"></span>SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Trưởng ban Tri Sự cần xác nhận trước 17:00 hôm nay. Không được trễ.</div><div class="sp-opinion-time">Sư Phụ · 28/04/2026 · 09:15</div></td>
           </tr>
           <tr>
             <td><div class="task-name">Trang Trí Lễ Vu Lan</div><div class="task-time">⏰ 28--30/04/2026</div><span class="status-badge status-doing">⏳ Đang làm</span></td>
@@ -851,7 +867,7 @@ pointer-events: none;
             <td><div class="task-name">Báo Cáo Tháng 4</div><div class="task-time">✅ Hoàn thành: 27/04</div><span class="status-badge status-done">✓ Đã làm</span></td>
             <td><div class="opinion-text">Nội dung đầy đủ, trình bày rõ ràng.</div><div class="opinion-who">Ban Văn Phòng · 26/04</div></td>
             <td><div class="opinion-text">Đã duyệt và chuyển BLĐ.</div><div class="opinion-who">BTS · 27/04</div></td>
-            <td class="td-sp"><div class="sp-taught-tag">🔴 SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Tốt. Tháng sau cần bổ sung mục phân tích chi phí vật tư chi tiết hơn.</div><div class="sp-opinion-time">Sư Phụ · 27/04/2026 · 10:15</div></td>
+            <td class="td-sp"><div class="sp-taught-tag"><span class="sp-pulse"></span>SP Đã Chỉ Dạy</div><div class="sp-opinion-text">Tốt. Tháng sau cần bổ sung mục phân tích chi phí vật tư chi tiết hơn.</div><div class="sp-opinion-time">Sư Phụ · 27/04/2026 · 10:15</div></td>
           </tr>
         </tbody>
       </table>
@@ -911,8 +927,8 @@ function getLunar(d) {
   return offset < 0 ? String(29 + offset + 1) : String(offset + 1);
 }
 const calDays = document.getElementById('calDays');
-const startDay = 2, totalDays = 30, todayD = 28;
-const urgentDays = [30], eventDays = [28, 30];
+const startDay = 2, totalDays = 30, todayD = 29;
+const urgentDays = [], eventDays = [30];
 for (let i = 0; i < startDay; i++) {
   const d = document.createElement('div');
   d.className = 'cal-day other-month';
